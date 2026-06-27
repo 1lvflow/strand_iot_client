@@ -1,5 +1,5 @@
 ﻿<template>
-  <view class="page">
+  <view class="page" v-if="pageReady">
     <view class="header">
       <view class="header-left">
         <text class="header-title">IoT遥控器</text>
@@ -275,6 +275,7 @@
 export default {
   data() {
     return {
+      pageReady: false,
       categories: [
         { id: 'all', name: '全部' },
         { id: 'living', name: '全屋' },
@@ -331,12 +332,6 @@ export default {
   computed: {
     categoryIndex() {
       return this.categories.findIndex(c => c.id === this.cardForm.category)
-    },
-    filteredCards() {
-      if (this.currentCategory === 'all') {
-        return this.cards
-      }
-      return this.cards.filter(card => card.category === this.currentCategory)
     }
   },
   onLoad() {
@@ -346,6 +341,9 @@ export default {
       this.htmlFiles = JSON.parse(savedHtmlFiles)
     }
     this.loadExternalHtmlFiles()
+    this.$nextTick(() => {
+      this.pageReady = true
+    })
   },
   onShow() {
     this.loadCards()
@@ -353,6 +351,20 @@ export default {
     if (savedHtmlFiles) {
       this.htmlFiles = JSON.parse(savedHtmlFiles)
     }
+    this.loadExternalHtmlFiles()
+    this.pageReady = false
+    this.$nextTick(() => {
+      this.pageReady = true
+    })
+  },
+  onBackPress() {
+    if (!this._backTimeout) {
+      uni.showToast({ title: '再按一次退出', icon: 'none' })
+      this._backTimeout = setTimeout(() => { this._backTimeout = null }, 2000)
+      return true
+    }
+    plus.runtime.quit()
+    return true
   },
   methods: {
     loadCards() {

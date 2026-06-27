@@ -332,6 +332,12 @@ export default {
   computed: {
     categoryIndex() {
       return this.categories.findIndex(c => c.id === this.cardForm.category)
+    },
+    filteredCards() {
+      if (this.currentCategory === 'all') {
+        return this.cards
+      }
+      return this.cards.filter(card => card.category === this.currentCategory)
     }
   },
   onLoad() {

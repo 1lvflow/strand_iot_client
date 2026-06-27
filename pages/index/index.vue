@@ -347,6 +347,13 @@ export default {
     }
     this.loadExternalHtmlFiles()
   },
+  onShow() {
+    this.loadCards()
+    const savedHtmlFiles = uni.getStorageSync('iot_html_files')
+    if (savedHtmlFiles) {
+      this.htmlFiles = JSON.parse(savedHtmlFiles)
+    }
+  },
   methods: {
     loadCards() {
       try {

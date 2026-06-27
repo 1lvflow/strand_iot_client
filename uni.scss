@@ -1,0 +1,20 @@
+/* uni.scss */
+
+/* 以下是主题变量，可以在此文件中自定义 */
+$uni-primary: #667eea;
+$uni-secondary: #764ba2;
+$uni-success: #4cd964;
+$uni-warning: #f0ad4e;
+$uni-error: #dd524d;
+
+/* 文字颜色 */
+$uni-text-color: #ffffff;
+$uni-text-color-inverse: #000000;
+$uni-text-color-grey: rgba(255, 255, 255, 0.6);
+$uni-text-color-placeholder: rgba(255, 255, 255, 0.3);
+
+/* 背景颜色 */
+$uni-bg-color: #1a1a2e;
+$uni-bg-color-grey: #f8f8f8;
+$uni-bg-color-hover: #f1f1f1;
+$uni-bg-color-mask: rgba(0, 0, 0, 0.4);

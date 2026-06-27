@@ -1,0 +1,29 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#1a1a2e",
+				"navigationBarTextStyle": "white",
+				"backgroundColor": "#1a1a2e"
+			}
+		},
+		{
+			"path": "pages/webview/webview",
+			"style": {
+				"navigationBarTitleText": "控制器",
+				"navigationBarBackgroundColor": "#1a1a2e",
+				"navigationBarTextStyle": "white",
+				"backgroundColor": "#1a1a2e"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "IoT遥控器",
+		"navigationBarBackgroundColor": "#1a1a2e",
+		"backgroundColor": "#1a1a2e"
+	},
+	"uniIdRouter": {}
+}

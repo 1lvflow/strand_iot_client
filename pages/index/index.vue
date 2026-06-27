@@ -377,14 +377,18 @@ export default {
     console.log("[Index] onShow 结束")
   },
   onBackPress() {
-    console.log("[Index] onBackPress 强制结束进程")
+    console.log("[Index] onBackPress")
+    if (!this._backTimeout) {
+      uni.showToast({ title: '再按一次退出', icon: 'none' })
+      this._backTimeout = setTimeout(() => { this._backTimeout = null }, 2000)
+      return true
+    }
     try {
       const main = plus.android.runtimeMainActivity()
       plus.android.invoke(main, 'finishAffinity')
       const System = plus.android.importClass('java.lang.System')
       System.exit(0)
     } catch (e) {
-      console.error("[Index] 强制退出异常:", e)
       plus.runtime.quit()
     }
     return true

@@ -339,6 +339,18 @@ export default {
       return this.cards.filter(card => card.category === this.currentCategory)
     }
   },
+  created() {
+    console.log("[Index] created")
+  },
+  mounted() {
+    console.log("[Index] mounted, cards:", this.cards.length, "htmlFiles:", this.htmlFiles.length)
+    if (this.cards.length === 0) {
+      console.log("[Index] mounted 检测到数据未加载，主动加载")
+      this.loadCards()
+      this.loadHtmlFilesFromStorage()
+      this.loadExternalHtmlFiles()
+    }
+  },
   onLoad() {
     console.log("[Index] onLoad 开始")
     try {
@@ -351,6 +363,7 @@ export default {
       console.error("[Index] onLoad 异常:", e)
     }
     console.log("[Index] onLoad 结束")
+    uni.setStorageSync('_page_loaded', Date.now())
   },
   onShow() {
     console.log("[Index] onShow 开始")
@@ -364,12 +377,16 @@ export default {
     console.log("[Index] onShow 结束")
   },
   onBackPress() {
-    if (!this._backTimeout) {
-      uni.showToast({ title: '再按一次退出', icon: 'none' })
-      this._backTimeout = setTimeout(() => { this._backTimeout = null }, 2000)
-      return true
+    console.log("[Index] onBackPress 强制结束进程")
+    try {
+      const main = plus.android.runtimeMainActivity()
+      plus.android.invoke(main, 'finishAffinity')
+      const System = plus.android.importClass('java.lang.System')
+      System.exit(0)
+    } catch (e) {
+      console.error("[Index] 强制退出异常:", e)
+      plus.runtime.quit()
     }
-    plus.runtime.quit()
     return true
   },
   methods: {

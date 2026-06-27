@@ -1,13 +1,25 @@
-<script>
+﻿<script>
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
+			console.log('[App] onLaunch')
+			uni.removeStorageSync('_page_loaded')
 		},
 		onShow: function() {
-			console.log('App Show')
+			console.log('[App] onShow')
+			setTimeout(() => {
+				const loaded = uni.getStorageSync('_page_loaded')
+				console.log('[App] 检查页面加载状态, _page_loaded =', loaded)
+				if (!loaded) {
+					console.log('[App] 页面未加载成功，执行 reLaunch 强制重建')
+					uni.reLaunch({ url: '/pages/index/index' })
+				}
+			}, 1000)
 		},
 		onHide: function() {
-			console.log('App Hide')
+			console.log('[App] onHide')
+		},
+		onError: function(err) {
+			console.error('[App] 错误:', err)
 		}
 	}
 </script>

@@ -36,12 +36,12 @@
         >
           <view class="card-icon-wrapper">
             <image 
-              v-if="card.icon.startsWith('http') || card.icon.includes('.png') || card.icon.includes('.jpg')"
+              v-if="card.icon && (card.icon.startsWith('http') || card.icon.includes('.png') || card.icon.includes('.jpg'))"
               :src="card.icon" 
               class="card-icon-img" 
               mode="aspectFit"
             />
-            <text v-else class="card-icon-emoji">{{ card.icon }}</text>
+            <text v-else class="card-icon-emoji">{{ card.icon || '📱' }}</text>
           </view>
           <text class="card-name">{{ card.name }}</text>
         </view>

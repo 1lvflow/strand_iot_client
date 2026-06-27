@@ -1,5 +1,5 @@
 ﻿<template>
-  <view class="page" v-if="pageReady">
+  <view class="page">
     <view class="header">
       <view class="header-left">
         <text class="header-title">IoT遥控器</text>
@@ -275,7 +275,6 @@
 export default {
   data() {
     return {
-      pageReady: false,
       categories: [
         { id: 'all', name: '全部' },
         { id: 'living', name: '全屋' },
@@ -341,27 +340,28 @@ export default {
     }
   },
   onLoad() {
-    this.loadCards()
-    const savedHtmlFiles = uni.getStorageSync('iot_html_files')
-    if (savedHtmlFiles) {
-      this.htmlFiles = JSON.parse(savedHtmlFiles)
+    console.log("[Index] onLoad 开始")
+    try {
+      this.loadCards()
+      console.log("[Index] cards:", this.cards.length)
+      this.loadHtmlFilesFromStorage()
+      console.log("[Index] htmlFiles:", this.htmlFiles.length)
+      this.loadExternalHtmlFiles()
+    } catch (e) {
+      console.error("[Index] onLoad 异常:", e)
     }
-    this.loadExternalHtmlFiles()
-    this.$nextTick(() => {
-      this.pageReady = true
-    })
+    console.log("[Index] onLoad 结束")
   },
   onShow() {
-    this.loadCards()
-    const savedHtmlFiles = uni.getStorageSync('iot_html_files')
-    if (savedHtmlFiles) {
-      this.htmlFiles = JSON.parse(savedHtmlFiles)
+    console.log("[Index] onShow 开始")
+    try {
+      this.loadCards()
+      this.loadHtmlFilesFromStorage()
+      this.loadExternalHtmlFiles()
+    } catch (e) {
+      console.error("[Index] onShow 异常:", e)
     }
-    this.loadExternalHtmlFiles()
-    this.pageReady = false
-    this.$nextTick(() => {
-      this.pageReady = true
-    })
+    console.log("[Index] onShow 结束")
   },
   onBackPress() {
     if (!this._backTimeout) {
@@ -373,6 +373,12 @@ export default {
     return true
   },
   methods: {
+    loadHtmlFilesFromStorage() {
+      const saved = uni.getStorageSync('iot_html_files')
+      if (saved) {
+        this.htmlFiles = JSON.parse(saved)
+      }
+    },
     loadCards() {
       try {
         const saved = uni.getStorageSync('iot_cards')
@@ -1592,3 +1598,4 @@ export default {
   }
 }
 </style>
+

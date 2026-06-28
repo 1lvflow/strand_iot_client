@@ -1,4 +1,4 @@
-﻿# IoT 遥控器
+# IoT 遥控器
 
 基于 uni-app 的物联网设备控制客户端，通过加载外部 HTML 文件实现对各类 IoT 设备的可视化控制。
 
@@ -10,13 +10,25 @@ strand-iot-client/
 │   ├── index/index.vue        # 主页：卡片管理 + 分类管理
 │   └── webview/webview.vue    # WebView 页面：加载 HTML 控制界面
 ├── static/
-│   └── static_htmls/          # 空目录（外部文件存储位置）
+│   ├── static_htmls/          # 空目录（外部文件存储位置）
+│   ├── 首页.png               # 主页界面截图
+│   └── 设置页面.png           # 添加卡片界面截图
 ├── App.vue                    # 应用根组件
 ├── main.js                    # 入口文件
 ├── pages.json                 # 页面路由配置
 ├── manifest.json              # 应用配置
 └── uni.scss                   # 全局样式变量
 ```
+
+## 页面展示
+
+### 主页界面
+
+![主页界面](static/首页.png)
+
+### 添加卡片界面
+
+![添加卡片界面](static/设置页面.png)
 
 ## 核心功能
 
